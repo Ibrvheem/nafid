@@ -4,6 +4,11 @@ import Barcode from "./screens/Barcode";
 import { useEffect } from "react";
 import * as Font from "expo-font";
 import Profile from "./screens/Profile";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
+
+const Stack = createStackNavigator();
+
 export default function App() {
   useEffect(() => {
     async function loadFonts() {
@@ -18,19 +23,19 @@ export default function App() {
   }, []);
 
   return (
-    <View style={styles.container}>
-      {/* <Barcode /> */}
-      <Profile />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Scan Barcode"
+          component={Barcode}
+          // options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Profile"
+          component={Profile}
+          // options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    width: "100%",
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

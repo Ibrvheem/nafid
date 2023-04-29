@@ -1,9 +1,10 @@
 import { BarCodeScanner } from "expo-barcode-scanner";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
+import { Button } from "react-native";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 
-export default function Barcode() {
+export default function Barcode({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
 
@@ -18,6 +19,7 @@ export default function Barcode() {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
+    navigation.navigate("Profile");
 
     alert(`Scanned Successfully. please wait`);
   };
@@ -28,9 +30,16 @@ export default function Barcode() {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
-  
+
   return (
-    <SafeAreaView>
+    <SafeAreaView
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100%",
+      }}
+    >
       <View
         style={{
           width: 400,
